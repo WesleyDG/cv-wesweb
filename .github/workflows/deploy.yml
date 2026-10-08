@@ -24,6 +24,7 @@ jobs:
       APP_ENV: production
       APP_DEBUG: false
       APP_URL: https://wesweb.fr
+      APP_NAME: ${{ vars.APP_NAME }}
     steps:
       - name: Checkout du code source
         uses: actions/checkout@v4
