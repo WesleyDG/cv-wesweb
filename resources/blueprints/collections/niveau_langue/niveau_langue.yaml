@@ -1,0 +1,70 @@
+title: 'Niveau Langue'
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+          -
+            handle: langue
+            field:
+              type: text
+              display: Langue
+              width: 33
+              duplicate: false
+          -
+            handle: niveau
+            field:
+              default: 50
+              type: range
+              display: Niveau
+              width: 33
+          -
+            handle: skill
+            field:
+              options:
+                -
+                  key: 'Langue maternelle'
+                  value: null
+                -
+                  key: Bilingue
+                  value: null
+                -
+                  key: Courant
+                  value: null
+                -
+                  key: Technique
+                  value: null
+                -
+                  key: Professionnel
+                  value: null
+                -
+                  key: Intermédiaire
+                  value: null
+                -
+                  key: Scolaire
+                  value: null
+                -
+                  key: Débutant
+                  value: null
+              multiple: true
+              max_items: 2
+              type: select
+              display: Skill
+              width: 33
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'

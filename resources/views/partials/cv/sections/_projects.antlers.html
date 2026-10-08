@@ -1,0 +1,51 @@
+<section id="{{ slug }}" data-reveal class="flex min-h-screen items-center border-t border-border bg-secondary px-6 py-24 lg:px-12">
+    <div class="mx-auto w-full max-w-7xl">
+        {{ partial:partials/cv/section_header class="mb-16" }}
+
+        {{# Réalisations dont « Afficher sur le CV » est coché, de la plus récente à la plus ancienne #}}
+        {{ collection:realisations show_on_cv:is="true" sort="year:desc|title" as="realisations" }}
+            <ul class="grid grid-cols-1 gap-px bg-border md:grid-cols-2">
+                {{ realisations }}
+                    {{# Délai calculé en style inline : Tailwind ne détecte pas une classe générée par Antlers #}}
+                    {{# Hauteur minimale plutôt qu'un ratio fixe : une longue description agrandit la carte au lieu d'être coupée #}}
+                    <li class="group relative flex min-h-112 flex-col justify-end overflow-hidden bg-card motion-safe:animate-fade-up" style="--delay: {{ 0.2 + index * 0.1 }}s">
+                        {{ if image }}
+                            {{# Image affichée en entier (souvent un logo), en haut de la carte #}}
+                            <img
+                                src="{{ image:url }}" alt="" loading="lazy"
+                                class="absolute inset-x-0 top-0 h-2/3 w-full object-contain p-10 grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"
+                            >
+                        {{ else }}
+                            <div class="bg-grid absolute inset-0 opacity-[0.04]"></div>
+                        {{ /if }}
+                        <div class="absolute inset-0 bg-linear-to-t from-background via-background/60 to-transparent"></div>
+                        <div class="absolute inset-0 bg-primary/0 transition-colors duration-500 group-hover:bg-primary/10"></div>
+
+                        <div class="relative translate-y-2 p-6 transition-transform duration-300 group-hover:translate-y-0">
+                            <p class="mb-2 font-mono text-xs uppercase tracking-widest text-primary/70">
+                                {{ category }}{{ if category && year }} / {{ /if }}{{ year }}
+                                {{ if offline }}<span class="ml-2 border border-border px-2 py-0.5 text-muted-foreground">Hors ligne</span>{{ /if }}
+                            </p>
+                            <h3 class="mb-3 font-display text-xl uppercase text-foreground">
+                                {{ if link && !offline }}
+                                    {{# Lien étendu à tout le bloc de texte #}}
+                                    <a href="{{ link }}" target="_blank" rel="noopener" class="after:absolute after:inset-0">{{ title }}</a>
+                                {{ else }}
+                                    {{ title }}
+                                {{ /if }}
+                            </h3>
+                            {{ if description }}
+                                <p class="mb-3 text-sm leading-relaxed text-muted-foreground">{{ description }}</p>
+                            {{ /if }}
+                            {{ if experience }}
+                                <p class="font-mono text-xs text-primary">
+                                    {{ if experience:company:filliale }}{{ experience:company:filliale:title }} / {{ /if }}{{ experience:company:title }}
+                                </p>
+                            {{ /if }}
+                        </div>
+                    </li>
+                {{ /realisations }}
+            </ul>
+        {{ /collection:realisations }}
+    </div>
+</section>

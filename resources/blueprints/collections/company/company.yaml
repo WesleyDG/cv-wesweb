@@ -1,0 +1,86 @@
+title: Company
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+          -
+            handle: company_name
+            field:
+              type: text
+              display: 'Company name'
+              validate:
+                - required
+          -
+            handle: company_logo
+            field:
+              container: assets
+              type: assets
+              display: 'Company logo'
+              max_files: 1
+          -
+            handle: company_website
+            field:
+              type: link
+              display: 'Company website'
+          -
+            handle: company_description
+            field:
+              type: text
+              display: 'Company description'
+          -
+            handle: filliale
+            field:
+              collections:
+                - company
+              type: entries
+              display: Filliale
+              mode: select
+              max_items: 1
+          -
+            handle: address
+            field:
+              type: text
+              display: Address
+          -
+            handle: zip_code
+            field:
+              character_limit: 10
+              type: text
+              display: 'Zip Code'
+              width: 25
+          -
+            handle: city
+            field:
+              type: text
+              display: City
+              width: 50
+          -
+            handle: countries
+            field:
+              taxonomies:
+                - countries
+              type: terms
+              display: Pays
+              mode: select
+              width: 25
+              max_items: 2
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'

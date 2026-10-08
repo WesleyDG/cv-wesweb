@@ -1,0 +1,87 @@
+title: Réalisation
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+              display: Titre
+          -
+            handle: experience
+            field:
+              type: entries
+              display: Expérience
+              instructions: 'Expérience durant laquelle le projet a été réalisé'
+              collections:
+                - cv_experiences
+              mode: select
+              max_items: 1
+              width: 50
+          -
+            handle: category
+            field:
+              type: text
+              display: Catégorie
+              instructions: 'Étiquette courte (ex : Automatisation)'
+              width: 25
+          -
+            handle: year
+            field:
+              type: text
+              display: Année
+              instructions: 'Sert aussi au tri, de la plus récente à la plus ancienne'
+              width: 25
+          -
+            handle: description
+            field:
+              type: textarea
+              display: Description
+              instructions: 'Deux ou trois phrases au maximum'
+          -
+            handle: image
+            field:
+              type: assets
+              display: Image
+              instructions: 'Logo ou capture, affiché en entier. Sans image, la carte affiche un fond quadrillé.'
+              container: assets
+              max_files: 1
+              width: 50
+          -
+            handle: link
+            field:
+              type: link
+              display: Lien
+              instructions: 'Facultatif : rend la carte cliquable'
+              width: 50
+          -
+            handle: offline
+            field:
+              type: toggle
+              display: 'Site hors ligne'
+              instructions: "Affiche la mention « Hors ligne » et désactive le lien"
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: show_on_cv
+            field:
+              type: toggle
+              display: 'Afficher sur le CV'
+              instructions: 'Décocher pour garder cette réalisation dans Statamic sans l’afficher'
+              default: true
+              always_save: true
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'

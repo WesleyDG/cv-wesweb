@@ -1,0 +1,46 @@
+title: Country
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+              display: Country
+          -
+            handle: country_code
+            field:
+              type: text
+              display: 'Country Code'
+              instructions: 'Code ISO'
+          -
+            handle: currency
+            field:
+              type: text
+              display: Currency
+              instructions: 'Devise du pays'
+          -
+            handle: flag
+            field:
+              container: assets
+              type: assets
+              display: Flag
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              required: true
+              validate:
+                - required
+                - 'max:200'

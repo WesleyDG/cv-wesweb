@@ -1,0 +1,33 @@
+title: Period
+fields:
+  -
+    handle: start_date
+    field:
+      type: date
+      display: 'Start Date'
+      validate:
+        - required
+      width: 33
+  -
+    handle: end_date
+    field:
+      type: date
+      display: 'End Date'
+      validate:
+        - 'after_or_equal:start_date'
+        - 'required_if:current,false'
+      width: 33
+      if:
+        current: 'not true'
+  -
+    handle: current
+    field:
+      type: toggle
+      display: Current
+      always_save: true
+      width: 33
+  -
+    handle: description
+    field:
+      type: markdown
+      display: Description

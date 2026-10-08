@@ -1,0 +1,51 @@
+<section id="{{ slug }}" data-reveal class="flex min-h-screen items-center border-t border-border px-6 py-24 lg:px-12">
+    <div class="mx-auto w-full max-w-7xl">
+        {{ partial:partials/cv/section_header class="mb-16" }}
+
+        {{# Expériences dont « Afficher sur le CV » est coché, de la plus récente à la plus ancienne #}}
+        {{ collection:cv_experiences show_on_cv:is="true" sort="start_date:desc" as="experiences" }}
+            <ol class="border-b border-border">
+                {{ experiences }}
+                    {{ partial:partials/cv/timeline_item :heading="poste" :location="company:city" }}
+                        {{ slot:period }}
+                            {{ if current }}Depuis {{ start_date | iso_format('MMM YYYY') }}{{ else }}{{ start_date | iso_format('MMM YYYY') }} à {{ end_date | iso_format('MMM YYYY') }}{{ /if }}
+                        {{ /slot:period }}
+
+                        {{ slot:organisation }}
+                            {{# Logos selon les cases de la section, sur fond clair pour rester lisibles sur le thème sombre #}}
+                            {{ if show_parent_logo && company:filliale:company_logo }}
+                                <img src="{{ company:filliale:company_logo:url }}" alt="" class="h-6 w-auto bg-foreground p-0.5">
+                            {{ /if }}
+                            {{ if show_company_logo && company:company_logo }}
+                                <img src="{{ company:company_logo:url }}" alt="" class="h-6 w-auto bg-foreground p-0.5">
+                            {{ /if }}
+                            {{ if company:filliale }}{{ company:filliale:title }} / {{ /if }}{{ company:title }}
+                        {{ /slot:organisation }}
+
+                        {{ if description }}
+                            <div class="mb-4 text-sm leading-relaxed text-muted-foreground [&_li]:mb-1 [&_p]:mt-3 [&_ul]:list-disc [&_ul]:pl-4">
+                                {{ description }}
+                            </div>
+                        {{ /if }}
+
+                        {{ if technologies_informatique || methodes_de_travail }}
+                            {{# Chaque boucle est gardée par un if : une boucle sur un champ vide afficherait le titre de l'expérience (variable héritée du parent) #}}
+                            <ul class="flex flex-wrap gap-2">
+                                {{ if technologies_informatique }}
+                                    {{ technologies_informatique }}
+                                        <li class="border border-primary/30 px-3 py-1 font-mono text-xs text-primary">{{ title }}</li>
+                                    {{ /technologies_informatique }}
+                                {{ /if }}
+                                {{ if methodes_de_travail }}
+                                    {{ methodes_de_travail }}
+                                        <li class="border border-border px-3 py-1 font-mono text-xs text-muted-foreground">{{ title }}</li>
+                                    {{ /methodes_de_travail }}
+                                {{ /if }}
+                            </ul>
+                        {{ /if }}
+                    {{ /partial:partials/cv/timeline_item }}
+                {{ /experiences }}
+            </ol>
+        {{ /collection:cv_experiences }}
+    </div>
+</section>

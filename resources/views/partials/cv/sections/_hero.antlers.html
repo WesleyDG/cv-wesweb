@@ -1,0 +1,49 @@
+{{# Données : postes recherchés (machine à écrire) et premier paragraphe du résumé (accroche) #}}
+{{ postes = [] }}
+{{ accroche = '' }}
+{{ collection:cv_contenu cle:is="postes_recherches" limit="1" }}{{ postes = liste }}{{ /collection:cv_contenu }}
+{{ collection:cv_contenu cle:is="resume_professionnel" limit="1" }}{{ accroche = content | raw | explode("\n\n") | first }}{{ /collection:cv_contenu }}
+
+<section id="{{ slug }}" class="relative flex min-h-screen flex-col justify-end overflow-hidden px-6 pb-20 lg:px-12">
+    {{# Quadrillage de fond #}}
+    <div class="bg-grid absolute inset-0 opacity-[0.04]"></div>
+
+    {{# Barre rouge #}}
+    <div class="absolute top-0 bottom-0 left-6 w-px origin-top bg-primary motion-safe:animate-grow-y [--delay:0.3s] lg:left-12"></div>
+
+    <div class="relative mx-auto w-full max-w-7xl">
+        <p class="mb-8 font-mono text-xs uppercase tracking-[0.3em] text-primary motion-safe:animate-fade-in-left [--delay:0.5s]">
+            {{ general_personnal_info:job_title }} / {{ general_personnal_info:city }}
+        </p>
+
+        <h1 class="mb-12 font-display text-[clamp(3.5rem,10vw,9rem)] uppercase leading-[0.9] text-foreground">
+            <span class="mb-4 block overflow-hidden">
+                <span class="block motion-safe:animate-reveal-up [--delay:0.6s]">{{ general_personnal_info:first_name }}</span>
+            </span>
+            <span class="block overflow-hidden">
+                <span class="block motion-safe:animate-reveal-up [--delay:0.75s]">{{ general_personnal_info:last_name }}</span>
+            </span>
+        </h1>
+
+        {{ if postes }}
+            <p class="mb-16 flex items-baseline gap-3 motion-safe:animate-fade-in [--delay:1.2s]">
+                <span class="text-lg text-muted-foreground">Je suis</span>
+                <span class="sr-only">{{ postes | join(', ') }}</span>
+                <span aria-hidden="true" class="min-w-50 font-display text-2xl text-primary">
+                    <span data-typewriter="{{ postes | to_json | sanitize }}">{{ postes | first }}</span><span class="animate-pulse">|</span>
+                </span>
+            </p>
+        {{ /if }}
+
+        {{ if accroche }}
+            <p class="max-w-sm text-sm leading-relaxed text-muted-foreground motion-safe:animate-fade-up [--delay:1.4s]">
+                {{ accroche }}
+            </p>
+        {{ /if }}
+    </div>
+
+    {{# Année #}}
+    <p class="absolute top-24 right-6 font-mono text-[10px] uppercase tracking-widest text-muted-foreground [writing-mode:vertical-rl] motion-safe:animate-fade-in [--delay:1.6s] lg:right-12">
+        CV {{ now format="Y" }}
+    </p>
+</section>

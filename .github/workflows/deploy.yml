@@ -1,0 +1,67 @@
+name: Générer et déployer le CV (SSG)
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      APP_ENV: production
+      APP_DEBUG: false
+      APP_URL: https://wesweb.fr
+    steps:
+      - name: Checkout du code source
+        uses: actions/checkout@v4
+
+      - name: Installer PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, intl, gd, exif, fileinfo
+          coverage: none
+
+      - name: Installer les dépendances Composer
+        run: composer install --no-dev --prefer-dist --no-interaction --no-progress --optimize-autoloader
+
+      - name: Installer Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Compiler les assets (Vite)
+        run: |
+          npm ci
+          npm run build
+
+      - name: Préparer Laravel
+        run: |
+          cp .env.example .env
+          php artisan key:generate --force
+
+      - name: Générer le site statique
+        run: php please ssg:generate
+
+      - name: Préparer l'artefact GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./storage/app/static
+
+      - name: Déployer sur GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

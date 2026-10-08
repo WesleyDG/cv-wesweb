@@ -1,0 +1,67 @@
+title: 'Expérience professionnelle'
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: company
+            field:
+              type: entries
+              display: Company
+              collections:
+                - company
+              mode: select
+              max_items: 1
+              validate:
+                - required
+          -
+            handle: poste
+            field:
+              type: text
+              display: Poste
+          -
+            import: period
+          -
+            handle: technologies_informatique
+            field:
+              mode: select
+              type: terms
+              display: Technologies
+              instructions: 'Liste les technos utilisées lors de ton éxperience'
+              taxonomies:
+                - technologies_informatique
+          -
+            handle: methodes_de_travail
+            field:
+              mode: select
+              type: terms
+              display: 'Méthodes de travail'
+              instructions: 'Méthodes et pratiques appliquées durant cette expérience'
+              taxonomies:
+                - methodes_de_travail
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: show_on_cv
+            field:
+              type: toggle
+              display: 'Afficher sur le CV'
+              instructions: 'Décocher pour garder cette entrée dans Statamic sans l’afficher'
+              default: true
+              always_save: true
+          -
+            handle: title
+            field:
+              type: text
+              required: false
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'

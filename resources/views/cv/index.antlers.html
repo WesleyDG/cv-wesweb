@@ -1,0 +1,4 @@
+{{# Page CV : assemble les sections choisies dans le champ « Sections » #}}
+{{ sections }}
+    {{ partial:if_exists src="partials/cv/sections/{section_type:value}" }}
+{{ /sections }}

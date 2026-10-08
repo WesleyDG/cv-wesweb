@@ -1,0 +1,34 @@
+<section id="{{ slug }}" data-reveal class="flex items-center border-t border-border px-6 py-24 lg:px-12">
+    <div class="mx-auto w-full max-w-7xl">
+        {{ partial:partials/cv/section_header class="mb-16" }}
+
+        {{# Engagements dont « Afficher sur le CV » est coché #}}
+        {{ collection:benevolat show_on_cv:is="true" sort="start_date:desc|title" as="engagements" }}
+            <ol class="border-b border-border">
+                {{ engagements }}
+                    {{ partial:partials/cv/timeline_item :heading="role" :location="organisation:city" }}
+                        {{ slot:period }}
+                            {{ if periode_libre }}
+                                {{ periode_libre }}
+                            {{ elseif current }}
+                                Depuis {{ start_date | iso_format('MMM YYYY') }}
+                            {{ elseif start_date }}
+                                {{ start_date | iso_format('MMM YYYY') }}{{ if end_date }} à {{ end_date | iso_format('MMM YYYY') }}{{ /if }}
+                            {{ /if }}
+                        {{ /slot:period }}
+
+                        {{ slot:organisation }}
+                            {{ organisation:title }}
+                        {{ /slot:organisation }}
+
+                        {{ if description }}
+                            <div class="text-sm leading-relaxed text-muted-foreground [&_li]:mb-1 [&_p]:mt-3 [&_ul]:list-disc [&_ul]:pl-4">
+                                {{ description }}
+                            </div>
+                        {{ /if }}
+                    {{ /partial:partials/cv/timeline_item }}
+                {{ /engagements }}
+            </ol>
+        {{ /collection:benevolat }}
+    </div>
+</section>

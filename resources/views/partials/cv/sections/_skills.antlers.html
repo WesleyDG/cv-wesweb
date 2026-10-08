@@ -1,0 +1,60 @@
+<section id="{{ slug }}" data-reveal class="flex min-h-screen items-center border-t border-border bg-secondary px-6 py-24 lg:px-12">
+    <div class="mx-auto w-full max-w-7xl">
+        <div class="mb-16 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+            {{ partial:partials/cv/section_header }}
+
+            {{ if intro }}
+                <p class="max-w-sm text-sm leading-relaxed text-muted-foreground motion-safe:animate-fade-up [--delay:0.2s]">
+                    {{ intro }}
+                </p>
+            {{ /if }}
+        </div>
+
+        {{ if skill_domains }}
+            <div class="grid grid-cols-1 border-t border-l border-border md:grid-cols-2">
+                {{ skill_domains }}
+                    {{# Délai calculé en style inline : Tailwind ne détecte pas une classe générée par Antlers #}}
+                    {{# Nombre impair de cartes : la dernière prend les deux colonnes #}}
+                    <article class="group border-r border-b border-border p-6 transition-colors duration-300 hover:bg-card motion-safe:animate-fade-up md:last:odd:col-span-2" style="--delay: {{ 0.2 + index * 0.05 }}s">
+                        <div class="mb-4 flex items-center justify-between gap-4">
+                            <h3 class="text-sm font-semibold text-foreground">{{ name }}</h3>
+                            <div class="flex items-center gap-3 font-mono text-xs">
+                                {{ if category }}
+                                    <span class="text-muted-foreground">{{ category }}</span>
+                                {{ /if }}
+                                {{ if level }}
+                                    <span class="text-primary">{{ level }}%</span>
+                                {{ /if }}
+                            </div>
+                        </div>
+
+                        {{# Aisance : barre fixe à la largeur du niveau ; sans niveau, ligne rouge qui se déploie au survol #}}
+                        <div aria-hidden="true" class="relative mb-4 h-px overflow-hidden bg-border">
+                            {{ if level }}
+                                <div class="absolute inset-y-0 left-0 origin-left bg-primary motion-safe:animate-grow-x" style="width: {{ level }}%; --delay: {{ 0.3 + index * 0.08 }}s"></div>
+                            {{ else }}
+                                <div class="absolute inset-0 origin-left scale-x-0 bg-primary transition-transform duration-500 group-hover:scale-x-100"></div>
+                            {{ /if }}
+                        </div>
+
+                        {{ if items }}
+                            <ul class="flex flex-wrap gap-x-4 gap-y-1 font-mono text-xs text-muted-foreground">
+                                {{ items }}
+                                    <li>{{ title }}</li>
+                                {{ /items }}
+                            </ul>
+                        {{ /if }}
+                    </article>
+                {{ /skill_domains }}
+            </div>
+        {{ /if }}
+
+        {{ if tools }}
+            <ul class="mt-12 flex flex-wrap gap-3 motion-safe:animate-fade-up [--delay:0.6s]">
+                {{ tools }}
+                    <li class="cursor-default border border-border px-4 py-2 font-mono text-xs text-muted-foreground transition-colors hover:border-primary hover:text-foreground">{{ title }}</li>
+                {{ /tools }}
+            </ul>
+        {{ /if }}
+    </div>
+</section>

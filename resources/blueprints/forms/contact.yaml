@@ -1,0 +1,40 @@
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: nom_complet
+            field:
+              type: text
+              display: 'Nom Complet'
+              validate:
+                - required
+          -
+            handle: adresse_email
+            field:
+              input_type: email
+              type: text
+              display: 'Adresse Email'
+              validate:
+                - required
+                - email
+          -
+            handle: telephone
+            field:
+              input_type: tel
+              type: text
+              display: Téléphone
+          -
+            handle: objet
+            field:
+              type: text
+              display: Objet
+          -
+            handle: message
+            field:
+              type: textarea
+              display: Message
+              validate:
+                - required

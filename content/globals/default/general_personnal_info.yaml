@@ -1,0 +1,15 @@
+first_name: Wesley
+last_name: 'Da Graça'
+job_title: 'Développeur Web Full Stack'
+email: wesley.dagraca@wesweb.fr
+website: 'https://wesweb.fr'
+city: Montréal
+country:
+  - canada
+work_authorization: 'Résident permanent, autorisé à travailler sans restriction'
+availability: 'Dès maintenant'
+working_day: 'Tous les jours'
+work_mode:
+  - Présentiel
+  - Hybride
+  - Télétravail

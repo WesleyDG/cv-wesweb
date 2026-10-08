@@ -1,0 +1,15 @@
+<footer class="border-t border-border px-6 py-6 lg:px-12 print:hidden">
+    <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 font-mono text-xs text-muted-foreground sm:flex-row">
+        <p>© {{ now format="Y" }} {{ general_personnal_info:first_name }} {{ general_personnal_info:last_name }}</p>
+
+        {{ if general_personnal_info:availability }}
+            <p class="flex items-center gap-2">
+                {{ general_personnal_info:city }}{{ if general_personnal_info:city }} / {{ /if }}Disponibilité : {{ general_personnal_info:availability }}
+                {{# Point clignotant seulement si disponible #}}
+                {{ if general_personnal_info:availability != 'Non disponible' }}
+                    <span aria-hidden="true" class="inline-block size-1.5 animate-pulse rounded-full bg-primary"></span>
+                {{ /if }}
+            </p>
+        {{ /if }}
+    </div>
+</footer>

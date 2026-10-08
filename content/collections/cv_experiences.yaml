@@ -1,0 +1,19 @@
+title: 'Expériences professionnelles'
+icon: collections
+template: cv/page
+layout: layouts/cv
+taxonomies:
+  - technologies_informatique
+  - methodes_de_travail
+revisions: false
+title_format: "{{ start_date | iso_format('MMMM YYYY') | ucfirst }} - {{ company:title }}"
+route: 'cv/experiences/{slug}'
+sort_dir: asc
+date_behavior:
+  past: null
+  future: null
+preview_targets:
+  -
+    label: Entry
+    url: '{permalink}'
+    refresh: true

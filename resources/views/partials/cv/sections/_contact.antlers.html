@@ -1,0 +1,86 @@
+<section id="{{ slug }}" data-reveal class="relative overflow-hidden border-t border-border px-6 py-24 lg:px-12">
+    {{# Grand mot en fond #}}
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 flex select-none items-center justify-center">
+        <span class="whitespace-nowrap font-display text-[20vw] uppercase leading-none text-foreground/2">{{ title }}</span>
+    </div>
+
+    <div class="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-start gap-16 lg:grid-cols-2 lg:gap-24">
+        <div>
+            {{ partial:partials/cv/section_header class="mb-8" }}
+
+            {{ if intro }}
+                <p class="mb-12 max-w-sm leading-relaxed text-muted-foreground motion-safe:animate-fade-up [--delay:0.2s]">{{ intro }}</p>
+            {{ /if }}
+
+            {{# Coordonnées #}}
+            <ul class="mb-12 space-y-4 text-sm text-muted-foreground motion-safe:animate-fade-up [--delay:0.3s]">
+                {{ if general_personnal_info:email }}
+                    <li class="flex items-center gap-4">
+                        <svg aria-hidden="true" class="size-3.5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+                        <a href="mailto:{{ general_personnal_info:email }}" class="transition-colors hover:text-foreground">{{ general_personnal_info:email }}</a>
+                    </li>
+                {{ /if }}
+                {{ if general_personnal_info:phone }}
+                    <li class="flex items-center gap-4">
+                        <svg aria-hidden="true" class="size-3.5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+                        <a href="tel:+1{{ general_personnal_info:phone | regex_replace('[^0-9]', '') }}" class="transition-colors hover:text-foreground">{{ general_personnal_info:phone }}</a>
+                    </li>
+                {{ /if }}
+                {{ if general_personnal_info:city }}
+                    <li class="flex items-center gap-4">
+                        <svg aria-hidden="true" class="size-3.5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span>{{ general_personnal_info:city }}{{ if general_personnal_info:country }}, {{ general_personnal_info:country:title }}{{ /if }}</span>
+                    </li>
+                {{ /if }}
+            </ul>
+
+            {{# Disponibilité et statut #}}
+            <dl class="mb-12 grid grid-cols-1 gap-4 border-t border-border pt-8 text-sm sm:grid-cols-2 motion-safe:animate-fade-up [--delay:0.4s]">
+                {{ if general_personnal_info:availability }}
+                    <div>
+                        <dt class="mb-1 font-mono text-xs uppercase tracking-widest text-muted-foreground">Disponibilité</dt>
+                        <dd class="text-foreground">{{ general_personnal_info:availability }}</dd>
+                    </div>
+                {{ /if }}
+                {{ if general_personnal_info:work_mode }}
+                    <div>
+                        <dt class="mb-1 font-mono text-xs uppercase tracking-widest text-muted-foreground">Mode de travail</dt>
+                        <dd class="text-foreground">{{ general_personnal_info:work_mode }}{{ label }}{{ unless last }}, {{ /unless }}{{ /general_personnal_info:work_mode }}</dd>
+                    </div>
+                {{ /if }}
+                {{ if general_personnal_info:work_authorization }}
+                    <div class="sm:col-span-2">
+                        <dt class="mb-1 font-mono text-xs uppercase tracking-widest text-muted-foreground">Statut</dt>
+                        <dd class="text-foreground">{{ general_personnal_info:work_authorization }}</dd>
+                    </div>
+                {{ /if }}
+            </dl>
+
+            {{# Réseaux publiés #}}
+            {{ collection:social_media sort="title" as="reseaux" }}
+                <ul class="flex flex-wrap gap-3 motion-safe:animate-fade-up [--delay:0.5s]">
+                    {{ reseaux }}
+                        <li>
+                            <a href="{{ link }}" target="_blank" rel="noopener" class="block border border-border px-4 py-2 font-mono text-xs text-muted-foreground transition-colors hover:border-primary hover:text-foreground">
+                                {{ title }}
+                            </a>
+                        </li>
+                    {{ /reseaux }}
+                </ul>
+            {{ /collection:social_media }}
+        </div>
+
+        {{# Lien mailto plutôt qu'un formulaire : rien à configurer côté serveur, et l'adresse reste visible à gauche pour être copiée #}}
+        {{ if general_personnal_info:email }}
+            <div class="flex flex-col items-start gap-4 border border-border p-8 motion-safe:animate-fade-up [--delay:0.2s] lg:p-12">
+<!--                <p class="font-mono text-xs uppercase tracking-widest text-muted-foreground">Par courriel</p>-->
+<!--                <p class="font-display text-2xl text-foreground break-all lg:text-3xl">{{ general_personnal_info:email }}</p>-->
+                <a href="mailto:{{ general_personnal_info:email }}?subject={{ 'Contact depuis votre CV' | rawurlencode }}"
+                   class="mt-4 inline-flex w-full items-center justify-center gap-3 bg-primary py-4 text-sm uppercase tracking-widest text-primary-foreground transition-colors duration-300 hover:bg-foreground hover:text-background">
+                    <svg aria-hidden="true" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+                    Écrire un courriel
+                </a>
+            </div>
+        {{ /if }}
+    </div>
+</section>

@@ -1,0 +1,4 @@
+{{# Libellé de section « 02 / Titre ». Le numéro suit la position dans la page CV, absent si la section est affichée seule #}}
+<p class="{{ class }} font-mono text-xs uppercase tracking-[0.3em] text-primary motion-safe:animate-fade-in">
+    {{ if index }}{{ index | str_pad_left:2:0 }} / {{ /if }}{{ title }}
+</p>

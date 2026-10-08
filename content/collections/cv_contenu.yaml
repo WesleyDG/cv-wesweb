@@ -1,0 +1,9 @@
+title: 'Contenu CV'
+icon: collections
+template: cv/page
+layout: layouts/cv
+revisions: false
+sort_dir: asc
+date_behavior:
+  past: public
+  future: private

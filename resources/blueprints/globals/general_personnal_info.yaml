@@ -1,0 +1,129 @@
+title: 'General Personnal Info'
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        display: Identité
+        fields:
+          -
+            handle: first_name
+            field:
+              type: text
+              display: 'First name'
+              width: 50
+          -
+            handle: last_name
+            field:
+              type: text
+              display: 'Last name'
+              width: 50
+          -
+            handle: job_title
+            field:
+              type: text
+              display: 'Job title'
+              instructions: 'Titre professionnel affiché en tête du CV'
+          -
+            handle: photo
+            field:
+              type: assets
+              display: Photo
+              instructions: 'Portrait principal, utilisé par défaut dans le CV (format vertical 3:4 conseillé)'
+              container: assets
+              max_files: 1
+      -
+        display: Contact
+        fields:
+          -
+            handle: email
+            field:
+              type: text
+              input_type: email
+              display: Courriel
+              width: 50
+          -
+            handle: phone
+            field:
+              type: text
+              display: Téléphone
+              width: 50
+          -
+            handle: website
+            field:
+              type: link
+              display: 'Site Web'
+          -
+            handle: city
+            field:
+              type: text
+              display: City
+              width: 50
+          -
+            handle: country
+            field:
+              type: terms
+              taxonomies:
+                - countries
+              display: Country
+              mode: select
+              max_items: 1
+              width: 50
+      -
+        display: Disponibilité
+        fields:
+          -
+            handle: work_authorization
+            field:
+              type: text
+              display: 'Work authorization'
+              instructions: "Statut légal de travail (ex : Résident permanent, autorisé à travailler sans restriction)"
+          -
+            handle: availability
+            field:
+              options:
+                -
+                  key: 'Dès maintenant'
+                  value: null
+                -
+                  key: 'Non disponible'
+                  value: null
+                -
+                  key: 'Dans 2 semaines'
+                  value: null
+              type: select
+              display: Availability
+              width: 50
+          -
+            handle: working_day
+            field:
+              options:
+                -
+                  key: 'Tous les jours'
+                  value: null
+                -
+                  key: 'En semaine'
+                  value: null
+                -
+                  key: null
+                  value: null
+              type: select
+              display: 'Working Day'
+              width: 50
+          -
+            handle: work_mode
+            field:
+              options:
+                -
+                  key: Présentiel
+                  value: null
+                -
+                  key: Hybride
+                  value: null
+                -
+                  key: Télétravail
+                  value: null
+              multiple: true
+              type: select
+              display: 'Work mode'
+              instructions: 'Modes de travail envisagés'

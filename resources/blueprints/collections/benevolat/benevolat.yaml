@@ -1,0 +1,81 @@
+title: Bénévolat
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: organisation
+            field:
+              type: entries
+              display: Organisation
+              collections:
+                - company
+              mode: select
+              max_items: 1
+              validate:
+                - required
+          -
+            handle: role
+            field:
+              type: text
+              display: Rôle
+          -
+            handle: periode_libre
+            field:
+              type: text
+              display: 'Période (texte libre)'
+              instructions: "À utiliser quand la période n'est pas précise au mois près (ex : Printemps/Été 2026)"
+          -
+            handle: start_date
+            field:
+              type: date
+              display: 'Start Date'
+              width: 33
+          -
+            handle: end_date
+            field:
+              type: date
+              display: 'End Date'
+              validate:
+                - 'after_or_equal:start_date'
+              width: 33
+              if:
+                current: 'not true'
+          -
+            handle: current
+            field:
+              type: toggle
+              display: Current
+              always_save: true
+              width: 33
+          -
+            handle: description
+            field:
+              type: markdown
+              display: Description
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: show_on_cv
+            field:
+              type: toggle
+              display: 'Afficher sur le CV'
+              instructions: 'Décocher pour garder cette entrée dans Statamic sans l’afficher'
+              default: true
+              always_save: true
+          -
+            handle: title
+            field:
+              type: text
+              required: false
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'

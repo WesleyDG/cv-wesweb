@@ -1,0 +1,46 @@
+title: 'Page CV'
+hide: true
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+              display: Titre
+          -
+            handle: sections
+            field:
+              type: entries
+              display: Sections
+              instructions: 'Sections affichées sur la page CV, dans cet ordre. Les sections se gèrent dans la collection « Sections CV ».'
+              collections:
+                - cv_sections
+              mode: default
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+          -
+            handle: template
+            field:
+              type: hidden
+              default: cv/index
+          -
+            handle: layout
+            field:
+              type: hidden
+              default: layouts/cv

@@ -1,0 +1,9 @@
+title: Formations
+icon: collections
+template: cv/page
+layout: layouts/cv
+revisions: false
+sort_dir: desc
+date_behavior:
+  past: public
+  future: private

@@ -1,0 +1,65 @@
+<section id="{{ slug }}" data-reveal class="flex min-h-screen items-center border-t border-border bg-secondary px-6 py-24 lg:px-12">
+    <div class="mx-auto w-full max-w-7xl">
+        {{ partial:partials/cv/section_header class="mb-16" }}
+
+        {{# Un groupe par type choisi dans la section ; un groupe sans formation affichée n'apparaît pas #}}
+        <div class="space-y-16">
+            {{ education_types }}
+                {{ collection:formations type:is="{value}" show_on_cv:is="true" sort="start_date:desc" as="formations" }}
+                    {{ unless no_results }}
+                        <div class="motion-safe:animate-fade-up [--delay:0.2s]">
+                            <h3 class="mb-6 font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">{{ label }}</h3>
+
+                            <ol class="border-b border-border">
+                                {{ formations }}
+                                    {{ partial:partials/cv/timeline_item :heading="title" heading_tag="h4" :location="school:school_city" }}
+                                        {{ slot:period }}
+                                            {{# Période en texte libre si renseignée (source précise à l'année), sinon d'après les dates #}}
+                                            {{ if periode_libre }}
+                                                {{ periode_libre }}
+                                            {{ elseif current }}
+                                                Depuis {{ start_date | iso_format('MMM YYYY') }}
+                                            {{ else }}
+                                                {{ start_date | iso_format('MMM YYYY') }}{{ if end_date }} à {{ end_date | iso_format('MMM YYYY') }}{{ /if }}
+                                            {{ /if }}
+                                        {{ /slot:period }}
+
+                                        {{ slot:organisation }}
+                                            {{ if show_school_logo && school:school_logo }}
+                                                <img src="{{ school:school_logo:url }}" alt="" class="h-6 w-auto bg-foreground p-0.5">
+                                            {{ /if }}
+                                            {{ school:title }}
+                                        {{ /slot:organisation }}
+
+                                        {{ if (degree && degree != title) || option }}
+                                            <p class="mb-4 text-sm leading-relaxed text-muted-foreground">
+                                                {{ if degree && degree != title }}{{ degree }}{{ /if }}{{ if degree && degree != title && option }}, {{ /if }}{{ option }}
+                                            </p>
+                                        {{ /if }}
+
+                                        {{ if description }}
+                                            <div class="mb-4 text-sm leading-relaxed text-muted-foreground [&_li]:mb-1 [&_p]:mt-3 [&_ul]:list-disc [&_ul]:pl-4">
+                                                {{ description }}
+                                            </div>
+                                        {{ /if }}
+
+                                        {{ if quebec_equivalent || modalite }}
+                                            <ul class="flex flex-wrap gap-2">
+                                                {{ if quebec_equivalent }}
+                                                    <li class="border border-primary/30 px-3 py-1 font-mono text-xs text-primary">Équivalence Québec : {{ quebec_equivalent }}</li>
+                                                {{ /if }}
+                                                {{ if modalite }}
+                                                    <li class="border border-border px-3 py-1 font-mono text-xs text-muted-foreground">{{ modalite:label }}</li>
+                                                {{ /if }}
+                                            </ul>
+                                        {{ /if }}
+                                    {{ /partial:partials/cv/timeline_item }}
+                                {{ /formations }}
+                            </ol>
+                        </div>
+                    {{ /unless }}
+                {{ /collection:formations }}
+            {{ /education_types }}
+        </div>
+    </div>
+</section>

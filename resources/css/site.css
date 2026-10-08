@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@source "../views";
+@source "../../content";
+
+/* ─── Thème ───────────────────────────────────────────────────────────────── */
+
+@theme {
+    --color-background: #080808;
+    --color-foreground: #f0ede8;
+    --color-card: #111111;
+    --color-card-foreground: #f0ede8;
+    --color-primary: #e63030;
+    --color-primary-foreground: #f0ede8;
+    --color-secondary: #1a1a1a;
+    --color-secondary-foreground: #f0ede8;
+    --color-muted: #1e1e1e;
+    --color-muted-foreground: #888880;
+    --color-border: rgb(240 237 232 / 0.1);
+
+    --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
+    --font-display: "Archivo Black", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "DM Mono", ui-monospace, monospace;
+
+    --animate-nav-in: nav-in 0.6s ease-out 0.8s both;
+    --animate-menu-in: menu-in 0.3s ease-out;
+
+    @keyframes nav-in {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes menu-in {
+        from { opacity: 0; transform: translateY(-8px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    --animate-fade-in: fade-in 0.6s ease var(--delay, 0s) both;
+    --animate-fade-in-left: fade-in-left 0.6s ease var(--delay, 0s) both;
+    --animate-fade-up: fade-up 0.6s ease var(--delay, 0s) both;
+    --animate-reveal-up: reveal-up 0.9s ease var(--delay, 0s) both;
+    --animate-grow-y: grow-y 1s ease var(--delay, 0s) both;
+    --animate-grow-x: grow-x 1s ease var(--delay, 0s) both;
+
+    @keyframes fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes fade-in-left {
+        from { opacity: 0; transform: translateX(-20px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes fade-up {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes reveal-up {
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
+    }
+
+    @keyframes grow-y {
+        from { transform: scaleY(0); }
+        to { transform: scaleY(1); }
+    }
+
+    @keyframes grow-x {
+        from { transform: scaleX(0); }
+        to { transform: scaleX(1); }
+    }
+}
+
+/* Quadrillage de fond du hero */
+@utility bg-grid {
+    background-image:
+        linear-gradient(var(--color-foreground) 1px, transparent 1px),
+        linear-gradient(90deg, var(--color-foreground) 1px, transparent 1px);
+    background-size: 80px 80px;
+}
+
+/* Animations en attente tant que la section n'est pas visible (voir reveal.js).
+   Hors layer pour passer devant les utilities animate-*, dont le raccourci
+   « animation » remettrait animation-play-state à running. */
+[data-reveal="pending"] * {
+    animation-play-state: paused;
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        /* Hauteur du menu fixe, pour ne pas masquer le haut des sections atteintes par ancre */
+        scroll-padding-top: 4rem;
+    }
+
+    ::selection {
+        background: var(--color-primary);
+        color: var(--color-primary-foreground);
+    }
+
+    ::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--color-primary);
+    }
+}

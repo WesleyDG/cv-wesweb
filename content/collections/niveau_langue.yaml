@@ -1,0 +1,5 @@
+title: 'Niveau Langue'
+revisions: false
+date_behavior:
+  past: public
+  future: private

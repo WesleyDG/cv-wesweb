@@ -1,0 +1,10 @@
+{{# En-tête de section : libellé numéroté et grand titre (champ headline) #}}
+<div class="{{ class }}">
+    {{ partial:partials/cv/section_label class="mb-4" }}
+
+    {{ if headline }}
+        <h2 class="font-display text-[clamp(2rem,5vw,4rem)] uppercase leading-none text-foreground motion-safe:animate-fade-up [--delay:0.1s] [&_strong]:font-normal [&_strong]:text-primary">
+            {{ headline }}
+        </h2>
+    {{ /if }}
+</div>

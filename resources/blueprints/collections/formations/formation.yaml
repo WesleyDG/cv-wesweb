@@ -1,0 +1,127 @@
+title: Formation
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+          -
+            handle: type
+            field:
+              options:
+                -
+                  key: diplome
+                  value: Diplôme
+                -
+                  key: certification
+                  value: Certification
+                -
+                  key: scolarite
+                  value: 'Parcours scolaire'
+              type: select
+              display: Type
+              default: diplome
+              width: 50
+              validate:
+                - required
+          -
+            handle: school
+            field:
+              type: entries
+              display: Établissement
+              collections:
+                - school
+              mode: select
+              max_items: 1
+              width: 50
+          -
+            handle: modalite
+            field:
+              options:
+                -
+                  key: presentiel
+                  value: Présentiel
+                -
+                  key: distanciel
+                  value: Distanciel
+                -
+                  key: hybride
+                  value: Hybride
+              type: select
+              display: Modalité
+              width: 50
+          -
+            handle: degree
+            field:
+              type: text
+              display: Degree
+          -
+            handle: quebec_equivalent
+            field:
+              type: text
+              display: 'Quebec Equivalent'
+              instructions: 'Équivalence québécoise du diplôme (utile pour les employeurs du Québec)'
+          -
+            handle: option
+            field:
+              type: text
+              display: Option
+              instructions: "Option du diplome (ex: option: développeur d'application)"
+          -
+            handle: periode_libre
+            field:
+              type: text
+              display: 'Période (texte libre)'
+              instructions: "Formulation exacte à afficher quand la source n'est précise qu'à l'année (ex : De 2010 à 2011). Les dates ci-dessous servent au tri."
+          -
+            handle: start_date
+            field:
+              type: date
+              display: 'Start Date'
+              width: 33
+          -
+            handle: end_date
+            field:
+              type: date
+              display: 'End Date'
+              validate:
+                - 'after_or_equal:start_date'
+              width: 33
+              if:
+                current: 'not true'
+          -
+            handle: current
+            field:
+              type: toggle
+              display: Current
+              always_save: true
+              width: 33
+          -
+            handle: description
+            field:
+              type: markdown
+              display: Description
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: show_on_cv
+            field:
+              type: toggle
+              display: 'Afficher sur le CV'
+              instructions: 'Décocher pour garder cette entrée dans Statamic sans l’afficher'
+              default: true
+              always_save: true
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'

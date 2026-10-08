@@ -1,0 +1,11 @@
+{{# Liens d'ancre vers les sections de la page CV, sauf le hero et le contact (bouton à part). Paramètre : class (taille du texte) #}}
+{{ collection:pages blueprint:is="cv" limit="1" }}
+    {{ cv_url = url }}
+    {{ sections }}
+        {{ unless section_type:value == 'hero' || section_type:value == 'contact' }}
+            <li>
+                <a href="{{ cv_url }}#{{ slug }}" data-menu-link class="{{ class }} uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground aria-[current=true]:text-foreground">{{ title }}</a>
+            </li>
+        {{ /unless }}
+    {{ /sections }}
+{{ /collection:pages }}

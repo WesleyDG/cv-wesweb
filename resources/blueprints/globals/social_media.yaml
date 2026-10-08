@@ -1,0 +1,13 @@
+title: 'Social Media'
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        display: 'New Section'
+        fields:
+          -
+            handle: social_media
+            field:
+              type: collections
+              display: 'Social Media'

@@ -1,0 +1,14 @@
+title: 'Site Config'
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: site_url
+            field:
+              type: link
+              display: 'Site URL'
+              sortable: false
+              actions: false

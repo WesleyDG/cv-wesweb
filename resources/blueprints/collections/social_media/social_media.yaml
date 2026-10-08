@@ -1,0 +1,44 @@
+title: 'Social Media'
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+          -
+            handle: logo_social_media
+            field:
+              container: assets
+              type: assets
+              display: 'Logo Social Media'
+          -
+            handle: link
+            field:
+              type: link
+              display: Link
+              validate:
+                - required
+          -
+            handle: link_display
+            field:
+              type: text
+              display: 'Link Display'
+              instructions: "Manière dont le lien doit s'afficher textuellement (par exemple pour un lien linkedin @wesley-da-graça est mieux que le lien en entier)"
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'

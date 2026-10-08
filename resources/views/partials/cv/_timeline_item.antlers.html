@@ -1,0 +1,26 @@
+{{#
+    Ligne de parcours (expérience, formation) : période à gauche, détails à droite.
+    Paramètres : heading (titre de la ligne), heading_tag (h3 par défaut), location (ville).
+    Slots : period, organisation (nom et logos), slot par défaut (description, étiquettes).
+    Survol en blanc translucide : visible sur fond sombre comme sur fond secondary.
+    Délai calculé en style inline : Tailwind ne détecte pas une classe générée par Antlers.
+#}}
+<li class="grid grid-cols-1 gap-4 border-t border-border py-8 transition-all duration-300 hover:bg-foreground/5 hover:px-4 motion-safe:animate-fade-up lg:grid-cols-[200px_1fr] lg:gap-12 lg:hover:px-6" style="--delay: {{ 0.2 + index * 0.08 }}s">
+    <p class="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+        {{ slot:period }}
+    </p>
+
+    <div>
+        <div class="mb-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+            <{{ heading_tag ?? 'h3' }} class="font-display text-xl uppercase text-foreground">{{ heading }}</{{ heading_tag ?? 'h3' }}>
+            <span class="flex items-center gap-2 text-sm text-primary">
+                {{ slot:organisation }}
+            </span>
+            {{ if location }}
+                <span class="hidden font-mono text-xs uppercase text-muted-foreground sm:ml-auto sm:block">{{ location }}</span>
+            {{ /if }}
+        </div>
+
+        {{ slot }}
+    </div>
+</li>

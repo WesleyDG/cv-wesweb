@@ -1,0 +1,45 @@
+title: 'Contenu CV'
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+              display: Titre
+              instructions: 'Titre interne du bloc (ex : Résumé professionnel)'
+          -
+            handle: cle
+            field:
+              type: text
+              display: Clé
+              instructions: 'Identifiant utilisé dans les gabarits pour cibler ce bloc (ex : resume_professionnel)'
+          -
+            handle: content
+            field:
+              type: markdown
+              display: Contenu
+              localizable: true
+          -
+            handle: liste
+            field:
+              type: list
+              display: Liste
+              instructions: 'Liste de valeurs simples (ex : postes recherchés, mots-clés)'
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'

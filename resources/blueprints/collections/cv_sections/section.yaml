@@ -1,0 +1,236 @@
+title: 'Section CV'
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+              display: Titre
+          -
+            handle: section_type
+            field:
+              type: select
+              display: 'Type de section'
+              instructions: 'Détermine le gabarit utilisé pour afficher la section, seule ou dans la page CV'
+              required: true
+              validate:
+                - required
+              options:
+                -
+                  key: hero
+                  value: Hero
+                -
+                  key: about
+                  value: 'À propos'
+                -
+                  key: skills
+                  value: Compétences
+                -
+                  key: experience
+                  value: Expérience
+                -
+                  key: education
+                  value: Formation
+                -
+                  key: projects
+                  value: Réalisations
+                -
+                  key: volunteering
+                  value: Bénévolat
+                -
+                  key: languages
+                  value: 'Langues et intérêts'
+                -
+                  key: contact
+                  value: Contact
+          -
+            handle: headline
+            field:
+              type: bard
+              display: 'Titre accrocheur'
+              instructions: 'Grand titre de la section. Mettre en gras les mots à afficher en rouge ; Maj+Entrée pour un retour à la ligne.'
+              inline: true
+              inline_hard_breaks: true
+              buttons:
+                - bold
+              if:
+                section_type: 'contains_any about, skills, experience, education, projects, volunteering, languages, contact'
+          -
+            handle: use_global_photo
+            field:
+              type: toggle
+              display: 'Utiliser la photo des informations générales'
+              instructions: 'Décocher pour choisir une autre photo, ou ne pas en afficher'
+              default: true
+              if:
+                section_type: 'equals about'
+          -
+            handle: photo
+            field:
+              type: assets
+              display: Photo
+              instructions: 'Photo propre à cette section (format vertical 3:4 conseillé). Laisser vide pour ne pas afficher de photo.'
+              container: assets
+              max_files: 1
+              if:
+                section_type: 'equals about'
+                use_global_photo: 'equals false'
+          -
+            handle: key_figures
+            field:
+              type: grid
+              display: 'Chiffres clés'
+              instructions: 'Affichés sous le texte, trois au maximum (ex : 10+ / Années)'
+              max_rows: 3
+              mode: table
+              fields:
+                -
+                  handle: value
+                  field:
+                    type: text
+                    display: Valeur
+                -
+                  handle: label
+                  field:
+                    type: text
+                    display: Libellé
+              if:
+                section_type: 'equals about'
+          -
+            handle: intro
+            field:
+              type: textarea
+              display: Introduction
+              instructions: 'Court texte affiché à côté ou sous le titre'
+              if:
+                section_type: 'contains_any skills, contact'
+          -
+            handle: skill_domains
+            field:
+              type: grid
+              display: 'Domaines de compétences'
+              instructions: 'Un domaine par carte, sur deux colonnes (si le nombre est impair, la dernière carte prend toute la largeur)'
+              mode: stacked
+              add_row: 'Ajouter un domaine'
+              fields:
+                -
+                  handle: name
+                  field:
+                    type: text
+                    display: Nom
+                    width: 50
+                -
+                  handle: category
+                  field:
+                    type: text
+                    display: Catégorie
+                    instructions: 'Étiquette courte (ex : Code, CMS)'
+                    width: 25
+                -
+                  handle: level
+                  field:
+                    type: integer
+                    display: Aisance
+                    instructions: 'En %, affiché avec une barre. 0 ou vide : pas de barre ni de pourcentage.'
+                    min: 0
+                    max: 100
+                    validate:
+                      - 'nullable'
+                      - 'integer'
+                      - 'between:0,100'
+                    width: 25
+                -
+                  handle: items
+                  field:
+                    type: terms
+                    display: Éléments
+                    taxonomies:
+                      - technologies_informatique
+                      - methodes_de_travail
+                      - soft_skills
+                    mode: select
+              if:
+                section_type: 'equals skills'
+          -
+            handle: tools
+            field:
+              type: terms
+              display: Outils
+              instructions: 'Affichés en étiquettes sous les domaines'
+              taxonomies:
+                - technologies_informatique
+              mode: select
+              if:
+                section_type: 'equals skills'
+          -
+            handle: show_company_logo
+            field:
+              type: toggle
+              display: "Afficher le logo de l'entreprise"
+              width: 50
+              if:
+                section_type: 'equals experience'
+          -
+            handle: show_parent_logo
+            field:
+              type: toggle
+              display: 'Afficher le logo de la maison mère'
+              instructions: "Champ « Filliale » de l'entreprise"
+              width: 50
+              if:
+                section_type: 'equals experience'
+          -
+            handle: show_school_logo
+            field:
+              type: toggle
+              display: "Afficher le logo de l'établissement"
+              if:
+                section_type: 'equals education'
+          -
+            handle: show_hobbies
+            field:
+              type: toggle
+              display: "Afficher les centres d'intérêt"
+              instructions: 'Termes de la taxonomie Hobbies'
+              default: true
+              if:
+                section_type: 'equals languages'
+          -
+            handle: education_types
+            field:
+              type: checkboxes
+              display: 'Types affichés'
+              instructions: 'Chaque type forme un groupe, dans cet ordre. Les formations dont « Afficher sur le CV » est décoché sont ignorées.'
+              options:
+                -
+                  key: diplome
+                  value: Diplômes
+                -
+                  key: certification
+                  value: Certifications
+                -
+                  key: scolarite
+                  value: 'Parcours scolaire'
+              default:
+                - diplome
+                - certification
+              if:
+                section_type: 'equals education'
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'

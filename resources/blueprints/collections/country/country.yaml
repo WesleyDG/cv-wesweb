@@ -1,0 +1,37 @@
+title: Country
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+              display: Country
+          -
+            handle: country_code
+            field:
+              type: text
+              display: 'Country code'
+          -
+            handle: flag
+            field:
+              container: assets
+              type: assets
+              display: Flag
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'

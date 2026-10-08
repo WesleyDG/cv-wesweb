@@ -1,0 +1,42 @@
+<section id="{{ slug }}" data-reveal class="border-t border-border bg-secondary px-6 py-24 lg:px-12">
+    <div class="mx-auto w-full max-w-7xl">
+        {{ partial:partials/cv/section_header class="mb-16" }}
+
+        <div class="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-24">
+            {{# Langues publiées, de la mieux maîtrisée à la moins maîtrisée #}}
+            {{ collection:niveau_langue sort="niveau:desc" as="langues" }}
+                <div class="motion-safe:animate-fade-up [--delay:0.2s]">
+                    <h3 class="mb-6 font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">Langues</h3>
+                    <ul class="border-t border-l border-border">
+                        {{ langues }}
+                            <li class="border-r border-b border-border p-6">
+                                <div class="mb-4 flex items-center justify-between gap-4">
+                                    <span class="text-sm font-semibold text-foreground">{{ langue }}</span>
+                                    {{ if skill }}
+                                        <span class="font-mono text-xs text-muted-foreground">
+                                            {{ skill }}{{ label }}{{ unless last }}, {{ /unless }}{{ /skill }}
+                                        </span>
+                                    {{ /if }}
+                                </div>
+                                <div aria-hidden="true" class="relative h-px overflow-hidden bg-border">
+                                    <div class="absolute inset-y-0 left-0 origin-left bg-primary motion-safe:animate-grow-x" style="width: {{ niveau }}%; --delay: {{ 0.3 + index * 0.08 }}s"></div>
+                                </div>
+                            </li>
+                        {{ /langues }}
+                    </ul>
+                </div>
+            {{ /collection:niveau_langue }}
+
+            {{ if show_hobbies }}
+                <div class="motion-safe:animate-fade-up [--delay:0.3s]">
+                    <h3 class="mb-6 font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">Centres d'intérêt</h3>
+                    <ul class="flex flex-wrap gap-3">
+                        {{ taxonomy:hobbies sort="title" }}
+                            <li class="cursor-default border border-border px-4 py-2 font-mono text-xs text-muted-foreground transition-colors hover:border-primary hover:text-foreground">{{ title }}</li>
+                        {{ /taxonomy:hobbies }}
+                    </ul>
+                </div>
+            {{ /if }}
+        </div>
+    </div>
+</section>

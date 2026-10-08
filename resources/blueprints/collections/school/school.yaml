@@ -1,0 +1,59 @@
+title: School
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+          -
+            handle: school_name
+            field:
+              type: text
+              display: 'School name'
+              validate:
+                - required
+          -
+            handle: school_logo
+            field:
+              container: assets
+              type: assets
+              display: 'School logo'
+              max_files: 1
+          -
+            handle: website
+            field:
+              type: link
+              display: 'School website'
+          -
+            handle: school_city
+            field:
+              type: text
+              display: 'School city'
+          -
+            handle: zip_code
+            field:
+              type: text
+              display: 'Zip code'
+          -
+            handle: address
+            field:
+              type: text
+              display: Address
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
