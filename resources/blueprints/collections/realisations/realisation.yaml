@@ -25,25 +25,40 @@ tabs:
               max_items: 1
               width: 50
           -
-            handle: category
-            field:
-              type: text
-              display: Catégorie
-              instructions: 'Étiquette courte (ex : Automatisation)'
-              width: 25
-          -
             handle: year
             field:
               type: text
               display: Année
               instructions: 'Sert aussi au tri, de la plus récente à la plus ancienne'
-              width: 25
+              width: 50
+          -
+            handle: subtitle
+            field:
+              type: text
+              display: Accroche
+              instructions: "Ligne courte sous le titre (ex : Site vitrine multilingue d'une marque de boisson · Projet réalisé en solo, de A à Z)"
           -
             handle: description
             field:
-              type: textarea
+              type: markdown
               display: Description
-              instructions: 'Deux ou trois phrases au maximum'
+              instructions: 'Deux ou trois phrases au maximum. Mise en forme possible (gras, italique, liens…)'
+          -
+            handle: tasks
+            field:
+              type: markdown
+              display: 'Tâches notables'
+              instructions: 'Une tâche par puce (commencer chaque ligne par « - »)'
+          -
+            handle: technologies_informatique
+            field:
+              mode: select
+              type: terms
+              display: Stack
+              instructions: 'Technologies et compétences mobilisées sur le projet'
+              taxonomies:
+                - technologies_informatique
+              create: true
           -
             handle: image
             field:
