@@ -82,6 +82,20 @@
     background-size: 80px 80px;
 }
 
+/* Carte de réalisation dépliée (voir projects.js) : ouverte au bouton « + » (data-open)
+   ou, avec une souris, au survol, sauf si elle vient d'être refermée au bouton (data-closed) */
+@custom-variant project-open {
+    .group[data-open] & {
+        @slot;
+    }
+
+    @media (pointer: fine) {
+        .group:hover:not([data-closed]) & {
+            @slot;
+        }
+    }
+}
+
 /* Animations en attente tant que la section n'est pas visible (voir reveal.js).
    Hors layer pour passer devant les utilities animate-*, dont le raccourci
    « animation » remettrait animation-play-state à running. */

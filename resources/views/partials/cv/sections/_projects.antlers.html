@@ -7,26 +7,42 @@
             <ul class="grid grid-cols-1 gap-px bg-border md:grid-cols-2">
                 {{ realisations }}
                     {{# Délai calculé en style inline : Tailwind ne détecte pas une classe générée par Antlers #}}
-                    {{# Hauteur minimale plutôt qu'un ratio fixe : une longue description agrandit la carte au lieu d'être coupée #}}
-                    <li class="group relative flex min-h-112 flex-col justify-end overflow-hidden bg-card motion-safe:animate-fade-up" style="--delay: {{ 0.2 + index * 0.1 }}s">
+                    {{# Seul l'en-tête est visible ; le détail se déplie avec le bouton « + » (data-open, voir projects.js) ou, avec une souris, au survol (variant project-open, voir site.css) #}}
+                    {{# Écran tactile : hauteur minimale, la carte s'allonge une fois dépliée plutôt que de faire défiler son texte #}}
+                    {{# Souris (pointer-fine) : hauteur fixe pour garder la grille alignée, le texte défile s'il dépasse #}}
+                    <li data-project class="group relative flex min-h-112 flex-col justify-end overflow-hidden bg-card motion-safe:animate-fade-up pointer-fine:h-112" style="--delay: {{ 0.2 + index * 0.1 }}s">
                         {{ if image }}
-                            {{# Image affichée en entier (souvent un logo), en haut de la carte #}}
+                            {{# Image affichée en entier (souvent un logo), en haut de la carte, sur une hauteur fixe pour ne pas passer sous un long texte #}}
                             <img
                                 src="{{ image:url }}" alt="" loading="lazy"
-                                class="absolute inset-x-0 top-0 h-2/3 w-full object-contain p-10 grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"
+                                class="absolute inset-x-0 top-0 h-80 w-full object-contain p-6 opacity-70 grayscale transition-all duration-700 project-open:scale-105 project-open:opacity-100 project-open:grayscale-0"
                             >
                         {{ else }}
                             <div class="bg-grid absolute inset-0 opacity-[0.04]"></div>
                         {{ /if }}
-                        <div class="absolute inset-0 bg-linear-to-t from-background via-background/60 to-transparent"></div>
                         <div class="absolute inset-0 bg-primary/0 transition-colors duration-500 group-hover:bg-primary/10"></div>
 
-                        <div class="relative translate-y-2 p-6 transition-transform duration-300 group-hover:translate-y-0">
-                            <p class="mb-2 font-mono text-xs uppercase tracking-widest text-primary/70">
-                                {{ category }}{{ if category && year }} / {{ /if }}{{ year }}
+                        {{# Voile derrière le texte pour la lisibilité ; il remonte sur l'image en se dépliant #}}
+                        <div class="relative border-t border-border bg-background/90 p-6 backdrop-blur-sm pointer-fine:absolute pointer-fine:inset-x-0 pointer-fine:bottom-0 pointer-fine:max-h-full pointer-fine:overflow-y-auto">
+                            {{ if description || tasks || technologies_informatique || experience }}
+                                {{# Au-dessus du lien étendu (z-10) ; le « + » pivote en « × » une fois déplié #}}
+                                <button type="button"
+                                        data-project-toggle
+                                        aria-controls="details-{{ id }}"
+                                        aria-expanded="false"
+                                        aria-label="Afficher le détail de {{ title }}"
+                                        class="absolute right-4 top-4 z-10 flex size-9 items-center justify-center border border-primary/30 text-primary transition-colors hover:bg-primary hover:text-primary-foreground">
+                                    <span class="relative size-3.5 transition-transform duration-300 project-open:rotate-45">
+                                        <span class="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-current"></span>
+                                        <span class="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-current"></span>
+                                    </span>
+                                </button>
+                            {{ /if }}
+                            <p class="mb-2 pr-12 font-mono text-xs uppercase tracking-widest text-primary/70">
+                                {{ year }}
                                 {{ if offline }}<span class="ml-2 border border-border px-2 py-0.5 text-muted-foreground">Hors ligne</span>{{ /if }}
                             </p>
-                            <h3 class="mb-3 font-display text-xl uppercase text-foreground">
+                            <h3 class="pr-12 font-display text-xl uppercase text-foreground">
                                 {{ if link && !offline }}
                                     {{# Lien étendu à tout le bloc de texte #}}
                                     <a href="{{ link }}" target="_blank" rel="noopener" class="after:absolute after:inset-0">{{ title }}</a>
@@ -34,14 +50,41 @@
                                     {{ title }}
                                 {{ /if }}
                             </h3>
-                            {{ if description }}
-                                <p class="mb-3 text-sm leading-relaxed text-muted-foreground">{{ description }}</p>
+                            {{ if subtitle }}
+                                <p class="mt-3 text-sm text-foreground/80">{{ subtitle }}</p>
                             {{ /if }}
-                            {{ if experience }}
-                                <p class="font-mono text-xs text-primary">
-                                    {{ if experience:company:filliale }}{{ experience:company:filliale:title }} / {{ /if }}{{ experience:company:title }}
-                                </p>
-                            {{ /if }}
+
+                            {{# Dépliage en hauteur via grid-rows 0fr → 1fr (une hauteur « auto » ne s'anime pas) #}}
+                            <div id="details-{{ id }}" class="grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity] duration-500 project-open:grid-rows-[1fr] project-open:opacity-100">
+                                <div class="min-h-0 overflow-hidden">
+                                    <div class="pt-4">
+                                        {{ if description }}
+                                            <div class="mb-4 text-sm leading-relaxed text-muted-foreground [&_a]:relative [&_a]:z-10 [&_a]:underline [&_li]:mb-1 [&_p]:mt-3 [&_p:first-child]:mt-0 [&_strong]:text-foreground [&_ul]:list-disc [&_ul]:pl-4">
+                                                {{ description }}
+                                            </div>
+                                        {{ /if }}
+                                        {{ if tasks }}
+                                            <p class="mb-2 font-mono text-xs uppercase tracking-widest text-primary/70">Tâches notables</p>
+                                            <div class="mb-4 text-sm leading-relaxed text-muted-foreground [&_a]:relative [&_a]:z-10 [&_a]:underline [&_li]:mb-1 [&_p]:mt-3 [&_p:first-child]:mt-0 [&_strong]:text-foreground [&_ul]:list-disc [&_ul]:pl-4">
+                                                {{ tasks }}
+                                            </div>
+                                        {{ /if }}
+                                        {{ if technologies_informatique }}
+                                            {{# Boucle gardée par un if : une boucle sur un champ vide afficherait le titre de la réalisation (variable héritée du parent) #}}
+                                            <ul class="mb-4 flex flex-wrap gap-2">
+                                                {{ technologies_informatique }}
+                                                    <li class="border border-primary/30 px-3 py-1 font-mono text-xs text-primary">{{ title }}</li>
+                                                {{ /technologies_informatique }}
+                                            </ul>
+                                        {{ /if }}
+                                        {{ if experience }}
+                                            <p class="font-mono text-xs text-primary">
+                                                {{ if experience:company:filliale }}{{ experience:company:filliale:title }} / {{ /if }}{{ experience:company:title }}
+                                            </p>
+                                        {{ /if }}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </li>
                 {{ /realisations }}
