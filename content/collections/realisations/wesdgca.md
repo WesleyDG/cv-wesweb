@@ -7,9 +7,9 @@ link: 'https://wesdg.ca'
 offline: true
 show_on_cv: true
 updated_by: 26bdc870-88b2-4e49-99b1-3d0b293b0027
-updated_at: 1792780555
+updated_at: 1792781185
 image: company-logos/gemini_generated_image_cfnoq3cfnoq3cfno-invert.png
-subtitle: 'Portfolio de photographie de soirées, mon activité de passion - Projet personnel réalisé en solo'
+subtitle: 'Portfolio de photographie, mon activité de passion - Projet personnel réalisé en solo'
 description: |-
   Site vitrine présentant mes reportages photo de soirées dans le Grand Montréal.
 
