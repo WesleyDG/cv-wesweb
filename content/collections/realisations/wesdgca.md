@@ -4,10 +4,10 @@ blueprint: realisation
 title: WesDG.ca
 year: '2026'
 link: 'https://wesdg.ca'
-offline: true
+offline: false
 show_on_cv: true
 updated_by: 26bdc870-88b2-4e49-99b1-3d0b293b0027
-updated_at: 1792781185
+updated_at: 1793976989
 image: company-logos/gemini_generated_image_cfnoq3cfnoq3cfno-invert.png
 subtitle: 'Portfolio de photographie, mon activité de passion - Projet personnel réalisé en solo'
 description: |-
