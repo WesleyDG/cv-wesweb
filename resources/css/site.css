@@ -36,13 +36,6 @@
         to { opacity: 1; transform: translateY(0); }
     }
 
-    --animate-fade-in: fade-in 0.6s ease var(--delay, 0s) both;
-    --animate-fade-in-left: fade-in-left 0.6s ease var(--delay, 0s) both;
-    --animate-fade-up: fade-up 0.6s ease var(--delay, 0s) both;
-    --animate-reveal-up: reveal-up 0.9s ease var(--delay, 0s) both;
-    --animate-grow-y: grow-y 1s ease var(--delay, 0s) both;
-    --animate-grow-x: grow-x 1s ease var(--delay, 0s) both;
-
     @keyframes fade-in {
         from { opacity: 0; }
         to { opacity: 1; }
@@ -72,6 +65,17 @@
         from { transform: scaleX(0); }
         to { transform: scaleX(1); }
     }
+}
+
+/* « inline » : var(--delay) doit être lue sur l'élément animé (classe [--delay:1s]),
+   et non résolue une seule fois sur :root, où --delay n'existe pas. */
+@theme inline {
+    --animate-fade-in: fade-in 0.6s ease var(--delay, 0s) both;
+    --animate-fade-in-left: fade-in-left 0.6s ease var(--delay, 0s) both;
+    --animate-fade-up: fade-up 0.6s ease var(--delay, 0s) both;
+    --animate-reveal-up: reveal-up 0.9s ease var(--delay, 0s) both;
+    --animate-grow-y: grow-y 1s ease var(--delay, 0s) both;
+    --animate-grow-x: grow-x 1s ease var(--delay, 0s) both;
 }
 
 /* Quadrillage de fond du hero */
