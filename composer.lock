@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca61bf4c5127e2dea885be7b1c059e9e",
+    "content-hash": "112de5b2e46983fbaba3ac98ffa2c066",
     "packages": [
         {
             "name": "ajthinking/archetype",
@@ -5216,16 +5216,16 @@
         },
         {
             "name": "statamic/cms",
-            "version": "v6.37.0",
+            "version": "v6.40.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statamic/cms.git",
-                "reference": "f4d06b82f7a81a2a7c8177be8e7344602f8461a4"
+                "reference": "34dd84d35d9aaaeb86c22d7a4416e833f56c5bf6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statamic/cms/zipball/f4d06b82f7a81a2a7c8177be8e7344602f8461a4",
-                "reference": "f4d06b82f7a81a2a7c8177be8e7344602f8461a4",
+                "url": "https://api.github.com/repos/statamic/cms/zipball/34dd84d35d9aaaeb86c22d7a4416e833f56c5bf6",
+                "reference": "34dd84d35d9aaaeb86c22d7a4416e833f56c5bf6",
                 "shasum": ""
             },
             "require": {
@@ -5234,7 +5234,7 @@
                 "composer/semver": "^3.4",
                 "ext-json": "*",
                 "guzzlehttp/guzzle": "^6.3 || ^7.0",
-                "inertiajs/inertia-laravel": "^2.0 || ^3.0",
+                "inertiajs/inertia-laravel": "^2.0.7 || ^3.0",
                 "intervention/image": "^3.9.1 || ^4.0",
                 "james-heinrich/getid3": "^1.9.21",
                 "laravel/framework": "^12.40.0 || ^13.0",
@@ -5324,7 +5324,7 @@
             ],
             "support": {
                 "issues": "https://github.com/statamic/cms/issues",
-                "source": "https://github.com/statamic/cms/tree/v6.37.0"
+                "source": "https://github.com/statamic/cms/tree/v6.40.0"
             },
             "funding": [
                 {
@@ -5332,24 +5332,24 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-22T14:30:18+00:00"
+            "time": "2026-11-03T15:49:12+00:00"
         },
         {
             "name": "statamic/ssg",
-            "version": "4.1.0",
+            "version": "4.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statamic/ssg.git",
-                "reference": "4700bfbba8cfb9e394a7c34f1bc5c11d487e41a2"
+                "reference": "35ca3662790253a7ac85a1d40e0d98831657d062"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statamic/ssg/zipball/4700bfbba8cfb9e394a7c34f1bc5c11d487e41a2",
-                "reference": "4700bfbba8cfb9e394a7c34f1bc5c11d487e41a2",
+                "url": "https://api.github.com/repos/statamic/ssg/zipball/35ca3662790253a7ac85a1d40e0d98831657d062",
+                "reference": "35ca3662790253a7ac85a1d40e0d98831657d062",
                 "shasum": ""
             },
             "require": {
-                "statamic/cms": "^6.5"
+                "statamic/cms": "^6.11"
             },
             "require-dev": {
                 "orchestra/testbench": "^10.0 || ^11.0",
@@ -5379,9 +5379,9 @@
             "description": "Generate static sites with Statamic.",
             "support": {
                 "issues": "https://github.com/statamic/ssg/issues",
-                "source": "https://github.com/statamic/ssg/tree/4.1.0"
+                "source": "https://github.com/statamic/ssg/tree/4.2.2"
             },
-            "time": "2026-03-09T09:55:49+00:00"
+            "time": "2026-11-02T09:14:54+00:00"
         },
         {
             "name": "statamic/stringy",
