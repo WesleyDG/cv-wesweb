@@ -27,7 +27,7 @@ jobs:
       APP_NAME: ${{ vars.APP_NAME }}
     steps:
       - name: Checkout du code source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Installer PHP
         uses: shivammathur/setup-php@v2
@@ -40,7 +40,7 @@ jobs:
         run: composer install --no-dev --prefer-dist --no-interaction --no-progress --optimize-autoloader
 
       - name: Installer Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
@@ -59,10 +59,10 @@ jobs:
         run: php please ssg:generate
 
       - name: Préparer l'artefact GitHub Pages
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./storage/app/static
 
       - name: Déployer sur GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
